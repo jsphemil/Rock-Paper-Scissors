@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+</head>
+<body>
+    <div style="display: block; position: relative; text-align: center;">
+        <h1 style="color:crimson; display: inline;" >Rock</h1><h1 style="color:darkcyan; display: inline;"> Paper</h1><h1 style="color: springgreen; display: inline;"> Scissors</h1><br>
+    </div>
+    <div style="display: block; position: relative; padding: 30px; margin:auto ; width: 300px; text-align: center;">
+        <p>Player :</p>
+       <select name="options" id="rps">
+           <option value=""></option>
+            <option value="rock">Rock</option>
+            <option value="paper">Paper</option>
+            <option value="scissors">Scissors</option>
+        </select><br><br>
+        <button onclick="computerPlay(); playerSelection(); playRound(playerSelection(),computerPlay());" id="btn">Play</button><br>
+        <p id="plrSlct"></p>
+
+<!-- 
+        <input type="radio" name="option" id="rps" value="rock"> Rock
+        <input type="radio" name="option" id="rps" value="paper"> Paper
+        <input type="radio" name="option" id="rps" value="scissors"> Scissors <br><br>
+        
+-->
+    </div>
+    <div style="display: block; position: relative; padding: 50px; margin:auto ; width: 300px; text-align: center;">
+        <p>Computer: </p>
+        <p id="cmptrslct"></p><br> <br>
+        <p id="result" style="color: royalblue; font-size: larger; font-weight: 700;"> </p>
+    </div>
+    
+    <script>
+        //let plrslct = document.getElementById("rps").value;
+        
+
+        function computerPlay() {
+            let output;
+            let rand = Math.floor(Math.random() * 11);
+            if (rand<=3) {
+                output = "Rock";
+            }else if (rand<7) {
+                output = "Paper";
+            } else {
+                output = "Scissors";
+            }
+            //console.log(output);
+            document.getElementById("cmptrslct").innerHTML = output;
+            return output;
+        }
+        //console.log(plrslct);
+        function playerSelection() {
+            var selector = document.getElementById('rps');
+            var playerHand = selector[selector.selectedIndex].innerHTML;
+            document.getElementById("plrSlct").innerHTML = playerHand;
+            return playerHand;
+        }
+
+        function playRound(player, computer){
+            let p = player; let c = computer; let result;
+            console.log(p);
+            console.log(c);
+            if (p == c) {
+                result = "Tie";
+            } else if (p == "Rock" && c == "Paper") {
+                result = "Computer Won!";
+            } else if (p == "Rock" && c == "Scissors") {
+                result = "Player Won!";
+            } else if (p == "Paper" && c == "Rock") {
+                result = "Player Won!";
+            } else if (p == "Paper" && c == "Scissors") {
+                result = "Computer Won!";
+            } else if (p == "Scissors" && c == "Rock") {
+                result = "Computer Won!";
+            } else if (p == "Scissors" && c == "Paper") {
+                result = "Player Won!";
+            } 
+            document.getElementById("result").innerHTML = result;
+        }
+
+//document.getElementById('btn').addEventListener('click', show_selected);
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+</html>
