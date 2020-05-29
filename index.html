@@ -2,95 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
-    <title>Rock Paper Scissors</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors 2.0</title>
 </head>
-<body style="height: auto;">
-    <div style="display: block; position: relative; text-align: center;">
-        <h1 style="color:crimson; display: inline;" >Rock</h1><h1 style="color:darkcyan; display: inline;"> Paper</h1><h1 style="color: springgreen; display: inline;"> Scissors</h1><br>
+<body style="display: block;width: 100vw; height: 100vh; text-align: center;">
+    <h1><span style="color: rgb(207, 6, 6)">Rock </span><span style="color:rgb(15, 216, 42)">Paper </span> <span style="color:steelblue">Scissors</span><span style="color:rgb(216, 213, 10)"> 2.0 </span></h1>
+    <br><br><div id="container">
+        <button id="rock" class="playerHand" value="rock">Rock</button> 
+        <button id="paper" class="playerHand" value="paper">Paper</button> 
+        <button id="scissors" class="playerHand" value="scissors">Scissors</button> 
     </div>
-    <div style="display: block; position: relative; padding: 30px; margin:auto ; width: auto; text-align: center;">
-        <p>Player :</p>
-       <select name="options" id="rps">
-           <option value=""></option>
-            <option value="rock">Rock</option>
-            <option value="paper">Paper</option>
-            <option value="scissors">Scissors</option>
-        </select><br><br>
-        <button onclick="computerPlay(); playerSelection(); playRound(playerSelection(),computerPlay());" id="btn">Play</button><br>
-        <p id="plrSlct"></p>
+   
+    <div style="display:block; padding: 50px;">
+        <p style="display: inline; padding: 20px;" id="plrChoice">Player Hand: </p>
+        <p style="display: inline; padding: 20px;" id="cmptrChoice">Computer Hand: </p>
+    </div>
 
-<!-- 
-        <input type="radio" name="option" id="rps" value="rock"> Rock
-        <input type="radio" name="option" id="rps" value="paper"> Paper
-        <input type="radio" name="option" id="rps" value="scissors"> Scissors <br><br>
-        
--->
+    <div style="display:block;">
+        <p style="display: inline; padding: 20px;" id="plrScore">Player Score: </p>
+        <p style="display: inline; padding: 20px;" id="cmptrScore">Computer Score: </p>
     </div>
-    <div style="display: block; position: relative; padding: 50px; margin:auto ; width: auto; text-align: center;">
-        <p>Computer: </p>
-        <p id="cmptrslct"></p><br> <br>
-        <p id="result" style="color: royalblue; font-size: larger; font-weight: 700;"> </p>
-    </div>
+
+    <p id="result" style="font-family: fantasy; font-size: 50px; font-weight: 600; color: rebeccapurple;"></p>
+    <!-- <br><br><button style="display: inline-flex; text-align: center;">Reset</button>-->
     
     <script>
-        //let plrslct = document.getElementById("rps").value;
+        let playerScore=0; let computerScore=0;
+
+        const choices = document.querySelectorAll('.playerHand');
+        choices.forEach((playerHand)=>{
+            playerHand.addEventListener('click', (e)=>{
+                const computerHand = computerChoice();
+                
+                //console.log(playerHand.value);
+                //console.log(computerHand);
+                const cHand = computerHand.toLowerCase();
+                const pHand = playerHand.textContent.toLowerCase();
+                //console.log(pHand);
+                //console.log(cHand);
+                    if (pHand===cHand) {
+                        playerScore +=0; computerScore +=0;
+                    } else if (pHand==='rock' && cHand==='paper') {
+                        playerScore +=0; computerScore +=1;
+                    } else if (pHand==='rock' && cHand==='scissors') {
+                        playerScore +=1; computerScore +=0;
+                    } else if (pHand==='paper' && cHand==='rock') {
+                        playerScore +=1; computerScore +=0;
+                    } else if (pHand==='paper' && cHand==='scissors') {
+                        playerScore +=0; computerScore +=1;
+                    } else if (pHand==='scissors' && cHand==='rock') {
+                        playerScore +=0; computerScore +=1;
+                    } else if (pHand==='scissors' && cHand==='paper') {
+                        playerScore +=1; computerScore +=0;
+                    } 
+                if(playerScore<5 && computerScore<5)    {
+                document.querySelector('#plrChoice').textContent = "Player Hand: "+playerHand.textContent;
+                document.querySelector('#cmptrChoice').textContent = "Computer Hand: "+computerHand;
+                document.querySelector('#plrScore').textContent = "Player Score: "+playerScore;
+                document.querySelector('#cmptrScore').textContent = "Computer Score: "+computerScore;
+                document.querySelector('#result').textContent = "";
+            } else if (playerScore==5) {
+                document.querySelector('#plrChoice').textContent = "Player Hand: "+playerHand.textContent;
+                document.querySelector('#cmptrChoice').textContent = "Computer Hand: "+computerHand;
+                document.querySelector('#plrScore').textContent = "Player Score: "+playerScore;
+                document.querySelector('#cmptrScore').textContent = "Computer Score: "+computerScore;
+                document.querySelector('#result').textContent = "Player Won";
+                playerScore=0; computerScore=0;
+            } else if (computerScore==5) {
+                document.querySelector('#plrChoice').textContent = "Player Hand: "+playerHand.textContent;
+                document.querySelector('#cmptrChoice').textContent = "Computer Hand: "+computerHand;
+                document.querySelector('#plrScore').textContent = "Player Score: "+playerScore;
+                document.querySelector('#cmptrScore').textContent = "Computer Score: "+computerScore;
+                document.querySelector('#result').textContent = "Computer Won";
+                playerScore=0; computerScore=0;
+            }
+                console.log(playerScore);
+            console.log(computerScore);
+            });
+        });
         
 
-        function computerPlay() {
+        function computerChoice(){
             let output;
-            let rand = Math.floor(Math.random() * 11);
-            if (rand<=3) {
+            let rand = Math.floor(Math.random()*11);
+            if (rand<4) {
                 output = "Rock";
-            }else if (rand<7) {
+            } else if (rand<=7) {
                 output = "Paper";
             } else {
                 output = "Scissors";
             }
-            //console.log(output);
-            document.getElementById("cmptrslct").innerHTML = output;
             return output;
+            //  console.log(rand);
         }
-        //console.log(plrslct);
-        function playerSelection() {
-            var selector = document.getElementById('rps');
-            var playerHand = selector[selector.selectedIndex].innerHTML;
-            document.getElementById("plrSlct").innerHTML = playerHand;
-            return playerHand;
-        }
-
-        function playRound(player, computer){
-            let p = player; let c = computer; let result;
-            console.log(p);
-            console.log(c);
-            if (p == c) {
-                result = "Tie";
-            } else if (p == "Rock" && c == "Paper") {
-                result = "Computer Won!";
-            } else if (p == "Rock" && c == "Scissors") {
-                result = "Player Won!";
-            } else if (p == "Paper" && c == "Rock") {
-                result = "Player Won!";
-            } else if (p == "Paper" && c == "Scissors") {
-                result = "Computer Won!";
-            } else if (p == "Scissors" && c == "Rock") {
-                result = "Computer Won!";
-            } else if (p == "Scissors" && c == "Paper") {
-                result = "Player Won!";
-            } 
-            document.getElementById("result").innerHTML = result;
-        }
-
-//document.getElementById('btn').addEventListener('click', show_selected);
-
-
-
-
-
-
-
+        
     </script>
-
-
 </body>
 </html>
